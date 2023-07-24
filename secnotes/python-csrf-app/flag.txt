@@ -1,0 +1,1 @@
+BT{CSRF_IS_COOL}

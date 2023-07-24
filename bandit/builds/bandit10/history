@@ -1,0 +1,5 @@
+cat /etc/shadow
+sudo cat /etc/shadow
+sudo -l
+echo "<ARG_NEXT_USER_USERNAME>:<ARG_NEXT_USER_PASSWORD>" | chpasswd
+sudo cat /etc/shadow

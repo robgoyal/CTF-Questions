@@ -1,0 +1,4 @@
+#!/bin/sh
+export TERM=linux
+more ~/note.txt
+exit 0

@@ -1,0 +1,5 @@
+Flask
+Flask-Login
+sqlalchemy
+backports.zoneinfo;python_version<"3.9"
+Flask-APScheduler

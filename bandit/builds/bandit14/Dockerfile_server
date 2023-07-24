@@ -1,0 +1,12 @@
+FROM bandit-base-img:latest
+
+ARG ARG_NEXT_USER_PASSWORD
+
+WORKDIR /root
+COPY main.py main.py
+RUN pip3 install flask
+RUN sed -i "s/<ARG_NEXT_USER_PASSWORD>/${ARG_NEXT_USER_PASSWORD}/" main.py
+
+EXPOSE 80
+CMD ["/usr/bin/python3", "/root/main.py"]
+

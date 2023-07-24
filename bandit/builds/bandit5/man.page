@@ -1,0 +1,9 @@
+
+xxd creates a hex dump of a given file or standard input. It can also convert a hex dump back to its original binary form. Like uuencode(1) and uudecode(1) it allows the transmission of binary data in a 'mail-safe' ASCII representation, but has the advantage of decoding to standard output. Moreover, it can be used to perform binary file patching.
+
+If no infile is given, standard input is read. If infile is specified as a '-' character, then input is taken from standard input. If no outfile is given (or a '-' character is in its place), results are sent to standard output.
+Note that a "lazy" parser is used which does not check for more than the first option letter, unless the option is followed by a parameter. Spaces between a single option letter and its parameter are optional. Parameters to options can be specified in decimal, hexadecimal or octal notation. Thus -c8, -c 8, -c 010 and -cols 8 are all equivalent.
+
+Output in postscript continuous hexdump style. Also known as plain hexdump style.
+-r | -revert
+reverse operation: convert (or patch) hexdump into binary. If not writing to stdout, xxd writes into its output file without truncating it. Use the combination -r -p to read plain hexadecimal dumps without line number information and without a particular column layout. Additional Whitespace and line-breaks are allowed anywhere.

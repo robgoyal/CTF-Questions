@@ -1,0 +1,18 @@
+FROM bandit-base-img:latest
+
+ARG ARG_CURR_USER_PASSWORD
+ARG ARG_NEXT_USER_PASSWORD
+
+WORKDIR /root
+COPY main.py main.py
+RUN openssl genrsa -out server.key 2048
+RUN openssl req -new -key server.key -x509 -days 3653 -out server.crt -subj '/CN=www.mydom.com/O=My Company Name LTD./C=US'
+RUN cat server.key server.crt > server.pem
+RUN chmod 600 server.key server.pem 
+
+RUN sed -i "s/<ARG_CURR_USER_PASSWORD>/${ARG_CURR_USER_PASSWORD}/" main.py
+RUN sed -i "s/<ARG_NEXT_USER_PASSWORD>/${ARG_NEXT_USER_PASSWORD}/" main.py
+
+EXPOSE 3000
+CMD ["/usr/bin/socat", "OPENSSL-LISTEN:3000,fork,reuseaddr,cert=/root/server.pem,cafile=/root/server.crt,verify=0", "EXEC:'python3 /root/main.py',pty,stderr"]
+

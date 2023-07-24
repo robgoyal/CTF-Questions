@@ -1,0 +1,499 @@
+version: "3.9"
+
+# A default set of variables for each environment
+x-default-environment: &default-environment
+  hostname: bandit.local
+  networks:
+    - bandit
+  depends_on:
+    - bandit-base-img
+    - bandit-sshpiper
+  restart: always
+
+services:
+  # SSH reverse proxy service
+  bandit-sshpiper:
+    image: bandit-sshpiper-img
+    container_name: bandit-sshpiper-ctr
+    build:
+      context: ./builds/sshpiper/
+    ports:
+      - 2222:2222
+    networks:
+      - bandit
+    restart: always
+  
+  # BASE image for each bandit related container
+  bandit-base-img:
+    image: bandit-base-img
+    build:
+      context: ./builds/base/
+      args:
+        - ARG_NUM_BANDIT_USERS=25
+    deploy:
+      mode: replicated
+      replicas: 0
+    depends_on:
+      - bandit-sshpiper
+
+  # BANDIT 0 => BANDIT 1
+  bandit-0-ctr:
+    image: bandit-0-img
+    container_name: bandit-0-ctr
+    build:
+      context: ./builds/bandit0/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit0
+        - ARG_CURR_USER_PASSWORD=${BANDIT0}
+        - ARG_NEXT_USER_USERNAME=bandit1
+        - ARG_NEXT_USER_PASSWORD=${BANDIT1}
+    <<: *default-environment
+
+  # BANDIT 1 => BANDIT 2
+  bandit-1-ctr:
+    image: bandit-1-img
+    container_name: bandit-1-ctr
+    build:
+      context: ./builds/bandit1/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit1
+        - ARG_CURR_USER_PASSWORD=${BANDIT1}
+        - ARG_NEXT_USER_USERNAME=bandit2
+        - ARG_NEXT_USER_PASSWORD=${BANDIT2}
+    <<: *default-environment
+
+  # bandit 2 => bandit 3
+  bandit-2-ctr:
+    image: bandit-2-img
+    container_name: bandit-2-ctr
+    build:
+      context: ./builds/bandit2/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit2
+        - ARG_CURR_USER_PASSWORD=${BANDIT2}
+        - ARG_NEXT_USER_USERNAME=bandit3
+        - ARG_NEXT_USER_PASSWORD=${BANDIT3}
+    <<: *default-environment
+
+  # BANDIT 3 => BANDIT 4
+  bandit-3-ctr:
+    image: bandit-3-img
+    container_name: bandit-3-ctr
+    build:
+      context: ./builds/bandit3/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit3
+        - ARG_CURR_USER_PASSWORD=${BANDIT3}
+        - ARG_NEXT_USER_USERNAME=bandit4
+        - ARG_NEXT_USER_PASSWORD=${BANDIT4}
+    <<: *default-environment
+
+  # BANDIT 4 => BANDIT 5
+  bandit-4-ctr:
+    image: bandit-4-img
+    container_name: bandit-4-ctr
+    build:
+      context: ./builds/bandit4/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit4
+        - ARG_CURR_USER_PASSWORD=${BANDIT4}
+        - ARG_NEXT_USER_USERNAME=bandit5
+        - ARG_NEXT_USER_PASSWORD=${BANDIT5}
+    <<: *default-environment
+ 
+  # BANDIT 5 => BANDIT 6
+  bandit-5-ctr:
+    image: bandit-5-img
+    container_name: bandit-5-ctr
+    build:
+      context: ./builds/bandit5/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit5
+        - ARG_CURR_USER_PASSWORD=${BANDIT5}
+        - ARG_NEXT_USER_USERNAME=bandit6
+        - ARG_NEXT_USER_PASSWORD=${BANDIT6}
+    <<: *default-environment
+        
+  # BANDIT 6 => BANDIT 7
+  bandit-6-ctr:
+    image: bandit-6-img
+    container_name: bandit-6-ctr
+    build:
+      context: ./builds/bandit6/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit6
+        - ARG_CURR_USER_PASSWORD=${BANDIT6}
+        - ARG_NEXT_USER_USERNAME=bandit7
+        - ARG_NEXT_USER_PASSWORD=${BANDIT7}
+    <<: *default-environment
+
+  # BANDIT 7 => BANDIT 8
+  bandit-7-ctr:
+    image: bandit-7-img
+    container_name: bandit-7-ctr
+    build:
+      context: ./builds/bandit7/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit7
+        - ARG_CURR_USER_PASSWORD=${BANDIT7}
+        - ARG_NEXT_USER_USERNAME=bandit8
+        - ARG_NEXT_USER_PASSWORD=${BANDIT8}
+    <<: *default-environment
+
+  # BANDIT 8 => BANDIT 9
+  bandit-8-ctr:
+    image: bandit-8-img
+    container_name: bandit-8-ctr
+    build:
+      context: ./builds/bandit8/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit8
+        - ARG_CURR_USER_PASSWORD=${BANDIT8}
+        - ARG_NEXT_USER_USERNAME=bandit9
+        - ARG_NEXT_USER_PASSWORD=${BANDIT9}
+    <<: *default-environment
+
+  # BANDIT 9 => BANDIT 10
+  bandit-9-ctr:
+    image: bandit-9-img
+    container_name: bandit-9-ctr
+    build:
+      context: ./builds/bandit9/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit9
+        - ARG_CURR_USER_PASSWORD=${BANDIT9}
+        - ARG_NEXT_USER_USERNAME=bandit10
+        - ARG_NEXT_USER_PASSWORD=${BANDIT10}
+    <<: *default-environment
+
+  # BANDIT 10 => BANDIT 11
+  bandit-10-ctr:
+    image: bandit-10-img
+    container_name: bandit-10-ctr
+    build:
+      context: ./builds/bandit10/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit10
+        - ARG_CURR_USER_PASSWORD=${BANDIT10}
+        - ARG_NEXT_USER_USERNAME=bandit11
+        - ARG_NEXT_USER_PASSWORD=${BANDIT11}
+    <<: *default-environment
+        
+  # BANDIT 11 => BANDIT 12
+  bandit-11-ctr:
+    image: bandit-11-img
+    container_name: bandit-11-ctr
+    build:
+      context: ./builds/bandit11/
+      args:
+        - ARG_NEXT_USER_USERNAME=bandit12
+        - ARG_NEXT_USER_PASSWORD=${BANDIT12}
+    networks:
+      - bandit
+      - bandit11
+    depends_on:
+      - bandit-base-img
+      - bandit-sshpiper
+    restart: always
+
+  bandit-11-server-ctr:
+    image: bandit-11-server-img
+    container_name: bandit-11-server-ctr
+    build:
+      context: ./builds/bandit11/
+      dockerfile: Dockerfile_server
+      args:
+        - ARG_CURR_USER_PASSWORD=${BANDIT11}
+        - ARG_NEXT_USER_USERNAME=bandit12
+        - ARG_NEXT_USER_PASSWORD=${BANDIT12}
+    hostname: bandit.local
+    networks:
+      bandit:
+      bandit11:
+        ipv4_address: 172.20.20.20
+    depends_on:
+      - bandit-base-img
+      - bandit-sshpiper
+      - bandit-11-ctr
+    restart: always
+
+  # BANDIT 12 => BANDIT 13
+  bandit-12-ctr:
+    image: bandit-12-img
+    container_name: bandit-12-ctr
+    build:
+      context: ./builds/bandit12/
+      args:
+        - ARG_NEXT_USER_USERNAME=bandit13
+        - ARG_NEXT_USER_PASSWORD=${BANDIT13}
+    hostname: bandit.local
+    networks:
+      - bandit
+      - bandit12
+    depends_on:
+      - bandit-base-img
+      - bandit-sshpiper
+    restart: always
+
+  bandit-12-server-ctr:
+    image: bandit-12-server-img
+    container_name: bandit-12-server-ctr
+    build:
+      context: ./builds/bandit12/
+      dockerfile: Dockerfile_server
+      args:
+        - ARG_CURR_USER_PASSWORD=${BANDIT12}
+        - ARG_NEXT_USER_USERNAME=bandit13
+        - ARG_NEXT_USER_PASSWORD=${BANDIT13}
+    hostname: bandit.local
+    networks:
+      bandit:
+      bandit12:
+          ipv4_address: 172.20.30.30
+    sysctls:
+      - net.ipv4.icmp_echo_ignore_all=1
+    depends_on:
+      - bandit-base-img
+      - bandit-sshpiper
+      - bandit-12-ctr
+    restart: always
+
+  # BANDIT 13 => BANDIT 14
+  bandit-13-ctr:
+    image: bandit-13-img
+    container_name: bandit-13-ctr
+    build:
+      context: ./builds/bandit13/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit13
+        - ARG_CURR_USER_PASSWORD=${BANDIT13}
+        - ARG_NEXT_USER_USERNAME=bandit14
+        - ARG_NEXT_USER_PASSWORD=${BANDIT14}
+    <<: *default-environment
+        
+  # BANDIT 14 => BANDIT 15
+  bandit-14-ctr:
+    image: bandit-14-img
+    container_name: bandit-14-ctr
+    build:
+      context: ./builds/bandit14/
+      args:
+        - ARG_NEXT_USER_USERNAME=bandit15
+        - ARG_NEXT_USER_PASSWORD=${BANDIT15}
+    hostname: bandit.local
+    networks:
+      - bandit
+      - bandit14
+    depends_on:
+      - bandit-base-img
+      - bandit-sshpiper
+    restart: always
+
+  bandit-14-server-ctr:
+    image: bandit-14-server-img
+    container_name: bandit-14-server-ctr
+    build:
+      context: ./builds/bandit14/
+      dockerfile: Dockerfile_server
+      args:
+        - ARG_NEXT_USER_PASSWORD=${BANDIT15}
+    hostname: bandit.local
+    networks:
+      bandit:
+      bandit14:
+          ipv4_address: 172.20.129.58
+    depends_on:
+      - bandit-base-img
+      - bandit-sshpiper
+      - bandit-14-ctr
+    restart: always
+
+  # BANDIT 15 => BANDIT 16
+  bandit-15-ctr:
+    image: bandit-15-img
+    container_name: bandit-15-ctr
+    build:
+      context: ./builds/bandit15/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit15
+        - ARG_CURR_USER_PASSWORD=${BANDIT15}
+        - ARG_NEXT_USER_USERNAME=bandit16
+        - ARG_NEXT_USER_PASSWORD=${BANDIT16}
+        - ARG_NEXT_NEXT_USER_USERNAME=bandit17
+        - ARG_NEXT_NEXT_NEXT_USER_USERNAME=bandit18
+    <<: *default-environment
+
+  # BANDIT 16 => BANDIT 17
+  bandit-16-ctr:
+    image: bandit-16-img
+    container_name: bandit-16-ctr
+    build:
+      context: ./builds/bandit16/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit16
+        - ARG_CURR_USER_PASSWORD=${BANDIT16}
+        - ARG_NEXT_USER_USERNAME=bandit17
+        - ARG_NEXT_USER_PASSWORD=${BANDIT17}
+    <<: *default-environment
+
+  # BANDIT 17 => BANDIT18
+  bandit-17-ctr:
+    image: bandit-17-img
+    container_name: bandit-17-ctr
+    build:
+      context: ./builds/bandit17/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit17
+        - ARG_CURR_USER_PASSWORD=${BANDIT17}
+        - ARG_NEXT_USER_USERNAME=bandit18
+        - ARG_NEXT_USER_PASSWORD=${BANDIT18}
+    <<: *default-environment
+
+  # BANDIT18 => BANDIT19
+  bandit-18-ctr:
+    image: bandit-18-img
+    container_name: bandit-18-ctr
+    build:
+      context: ./builds/bandit18/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit18
+        - ARG_CURR_USER_PASSWORD=${BANDIT18}
+        - ARG_NEXT_USER_USERNAME=bandit19
+        - ARG_NEXT_USER_PASSWORD=${BANDIT19}
+    hostname: bandit.local
+    networks:
+      bandit:
+      bandit18:
+    depends_on:
+      - bandit-base-img
+      - bandit-sshpiper
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    restart: always
+
+  bandit-18-server-ctr:
+    #image: stilliard/pure-ftpd
+    container_name: bandit-18-server-ctr
+    build:
+      context: ./builds/bandit18/
+      dockerfile: Dockerfile_server
+      args:
+        - ARG_NEXT_USER_USERNAME=bandit19
+        - ARG_NEXT_USER_PASSWORD=${BANDIT19} 
+    environment:
+      PUBLICHOST: "bandit.local"
+      FTP_USER_NAME: bandit19
+      FTP_USER_PASS: 'L3TMEINFTPASSWORD123' 
+      FTP_USER_HOME: /home/bandit19
+    networks:
+      bandit:
+      bandit18:
+    depends_on:
+      - bandit-base-img
+      - bandit-sshpiper
+      - bandit-18-ctr
+    restart: always
+    
+  # BANDIT19 => BANDIT20
+  bandit-19-ctr:
+    image: bandit-19-img
+    container_name: bandit-19-ctr
+    build:
+      context: ./builds/bandit19/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit19
+        - ARG_CURR_USER_PASSWORD=${BANDIT19}
+        - ARG_NEXT_USER_USERNAME=bandit20
+        - ARG_NEXT_USER_PASSWORD=${BANDIT20}
+    <<: *default-environment
+
+  # BANDIT20 => BANDIT21
+  bandit-20-ctr:
+    image: bandit-20-img
+    container_name: bandit-20-ctr
+    build:
+      context: ./builds/bandit20/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit20
+        - ARG_CURR_USER_PASSWORD=${BANDIT20}
+        - ARG_NEXT_USER_USERNAME=bandit21
+        - ARG_NEXT_USER_PASSWORD=${BANDIT21}
+    <<: *default-environment
+
+  # BANDIT21 => BANDIT22
+  bandit-21-ctr:
+    image: bandit-21-img
+    container_name: bandit-21-ctr
+    build:
+      context: ./builds/bandit21/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit21
+        - ARG_CURR_USER_PASSWORD=${BANDIT21}
+        - ARG_NEXT_USER_USERNAME=bandit22
+        - ARG_NEXT_USER_PASSWORD=${BANDIT22}
+    <<: *default-environment
+
+  # BANDIT22 => BANDIT23
+  bandit-22-ctr:
+    image: bandit-22-img
+    container_name: bandit-22-ctr
+    build:
+      context: ./builds/bandit22/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit22
+        - ARG_CURR_USER_PASSWORD=${BANDIT22}
+        - ARG_NEXT_USER_USERNAME=bandit23
+        - ARG_NEXT_USER_PASSWORD=${BANDIT23}
+    cap_add:
+      - LINUX_IMMUTABLE
+    <<: *default-environment
+
+  # BANDIT23 => BANDIT24
+  bandit-23-ctr:
+    image: bandit-23-img
+    container_name: bandit-23-ctr
+    build:
+      context: ./builds/bandit23/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit23
+        - ARG_CURR_USER_PASSWORD=${BANDIT23}
+        - ARG_NEXT_USER_USERNAME=bandit24
+        - ARG_NEXT_USER_PASSWORD=${BANDIT24}
+    <<: *default-environment
+
+  # BANDIT24 => BANDIT25
+  bandit-24-ctr:
+    image: bandit-24-img
+    container_name: bandit-24-ctr
+    build:
+      context: ./builds/bandit24/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit24
+        - ARG_CURR_USER_PASSWORD=${BANDIT24}
+        - ARG_NEXT_USER_USERNAME=bandit25
+        - ARG_NEXT_USER_PASSWORD=${BANDIT25}
+    <<: *default-environment
+
+networks:
+  bandit:
+  bandit11:
+    ipam:
+      config:
+        - subnet: 172.20.20.0/24
+          gateway: 172.20.20.1
+  bandit12:
+    ipam:
+      config:
+        - subnet: 172.20.30.0/24
+          gateway: 172.20.30.1
+  bandit14:
+    ipam:
+      config:
+        - subnet: 172.20.129.0/24
+          gateway: 172.20.129.1
+  bandit18:
+    ipam:
+      config:
+        - subnet: 172.20.40.0/24
+          gateway: 172.20.40.1

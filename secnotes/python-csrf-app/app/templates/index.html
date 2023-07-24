@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gradebook - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+    <style type="text/css">
+        body{ font: 14px sans-serif; text-align: center; }
+		.accordion {
+			background-color: #eee;
+			color: #444;
+			cursor: pointer;
+			padding: 18px;
+			width: 80%;
+			border: none;
+			text-align: left;
+			outline: none;
+			font-size: 15px;
+			transition: 0.4s;
+		}
+
+		.active, .accordion:hover {
+			background-color: #ccc;
+		}
+
+		.accordion:after {
+			content: '\002B';
+			color: #777;
+			font-weight: bold;
+			float: right;
+			margin-left: 5px;
+		}
+
+		.active:after {
+			content: "\2212";
+		}
+
+		.panel {
+			padding: 0 18px;
+			background-color: white;
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.2s ease-out;
+		}
+    </style>
+	<script src="{{ url_for('static', filename='jquery-3.2.1.slim.min.js') }}" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="{{ url_for('static', filename='popper.min.js') }}" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="{{ url_for('static', filename='bootstrap.min.js') }}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="alert alert-warning">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% else %}
+        <p>If there are any issues with the application, please contact <strong>jess</strong> using the contact link below with any questions.</p>
+        {% endif %}
+    {% endwith %}
+  </div>
+  <div class="page-header"><h1>Viewing Grades for <b>{{ current_user.username | capitalize }}</b></h1></div>
+	<div>
+    {% if grades %}
+      {% for grade in grades %}
+        <button class="accordion"><strong>{{ grade[1] }}:</strong><small> {{ grade[2] }}%</small></button>
+        <a href="{{ url_for('index') }}?action=delete&id={{ grade[0] }}" class="btn btn-danger"><strong>X</strong></a>
+        <div class="panel center-block text-left" style="width: 78%;"><pre>{{ grade[3] }}</pre></div>
+      {% endfor %}
+    {% else %}
+      <p>User <strong> {{current_user.username | capitalize }} </strong> has no grades. Add grades by clicking below.</p>
+    {% endif %}
+	</div>
+	<div class="btn-group">
+    <a href="{{ url_for('add_grade')}}" class="btn btn-lg btn-block btn-success">Add Grade</a>
+    <a href="{{ url_for('change_password') }}" class="btn btn-lg btn-block btn-warning">Change Password</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-lg btn-block btn-danger">Sign Out</a>
+    <a href="{{ url_for('contact') }}" class="btn btn-lg btn-block btn-info">Contact Us</a>
+	</div>
+
+	<script>
+	var acc = document.getElementsByClassName("accordion");
+	var i;
+
+	for (i = 0; i < acc.length; i++) {
+	  acc[i].addEventListener("click", function() {
+		this.classList.toggle("active");
+		var panel = this.nextElementSibling.nextElementSibling;
+		if (panel.style.maxHeight){
+		  panel.style.maxHeight = null;
+		} else {
+		  panel.style.maxHeight = panel.scrollHeight + "px";
+		}
+	  });
+	}
+	</script>
+</body>
+</html>
+

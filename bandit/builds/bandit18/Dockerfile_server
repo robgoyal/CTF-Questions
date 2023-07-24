@@ -1,0 +1,7 @@
+FROM stilliard/pure-ftpd
+
+ARG ARG_NEXT_USER_USERNAME
+ARG ARG_NEXT_USER_PASSWORD
+
+RUN mkdir /home/${ARG_NEXT_USER_USERNAME}
+RUN echo "${ARG_NEXT_USER_PASSWORD}" > /home/${ARG_NEXT_USER_USERNAME}/my-system-creds.txt

@@ -1,0 +1,14 @@
+FROM bandit-base-img:latest
+
+ARG ARG_CURR_USER_PASSWORD
+ARG ARG_NEXT_USER_USERNAME
+ARG ARG_NEXT_USER_PASSWORD
+
+WORKDIR /root
+COPY main.py main.py
+RUN sed -i "s/<ARG_CURR_USER_PASSWORD>/${ARG_CURR_USER_PASSWORD}/" main.py
+RUN sed -i "s/<ARG_NEXT_USER_PASSWORD>/${ARG_NEXT_USER_PASSWORD}/" main.py
+RUN sed -i "s/<ARG_NEXT_USER_PASSWORD>/${ARG_NEXT_USER_PASSWORD}/" main.py
+
+EXPOSE 3000
+CMD ["/usr/bin/socat", "TCP-LISTEN:3000,fork,reuseaddr", "EXEC:'python3 /root/main.py',pty,stderr"]

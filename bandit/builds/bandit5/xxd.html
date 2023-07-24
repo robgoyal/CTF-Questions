@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>xxd(1): make hexdump/do reverse - Linux man page</title>
+<base href="https://linux.die.net/man/1/xxd">
+<link rel="canonical" href="https://linux.die.net/man/1/xxd">
+<link rel="stylesheet" type="text/css" href="/style/white.css">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link href="/style/search.xml" rel="search" title="Search the die.net site" type="application/opensearchdescription+xml">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="xxd creates a hex dump of a given file or standard input. It can also convert a hex dump back to its original binary form. Like uuencode(1) and uudecode(1) ...">
+<script type="text/javascript">
+<!--
+var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-50820-6']);_gaq.push(['_trackPageview']);
+window.google_analytics_uacct = 'UA-50820-6';
+// -->
+</script>
+</head>
+
+<body>
+<div id=bg>
+<div id=logo>
+<a href="https://www.die.net/"><img
+src="/style/logo.svg" alt="die.net" width=120 height=120
+onerror="this.onerror=null; this.src='/style/logo.png'"></a>
+</div>
+<div id=content>
+
+<!-- google_ad_section_start -->
+<h1>xxd(1) - Linux man page</h1>
+
+<h2>Name</h2>
+<i>xxd</i> - make a hexdump or do the reverse.
+<h2>Synopsis</h2>
+<b>xxd</b> -h[elp]<br>
+<b>xxd</b> [options] [infile [outfile]]<br>
+<b>xxd</b> -r[evert] [options] [infile [outfile]]
+<h2>Description</h2>
+<div id=adright>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-5823754184406795"
+     data-ad-slot="7130739364"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<i>xxd</i> creates a hex dump of a given file or standard input. It can also convert a hex dump
+back to its original binary form. Like <i><b><a href="uuencode" rel="nofollow">uuencode</a></b>(1)</i> and <i><b><a href="uudecode" rel="nofollow">uudecode</a></b>(1)</i> it allows the transmission of binary data in a 'mail-safe' ASCII
+representation, but has the advantage of decoding to standard output. Moreover, it can be used to perform binary file patching.
+<h2>Options</h2>
+If no <i>infile</i> is given, standard input is read. If <i>infile</i> is specified as a '<b>-</b>'
+character, then input is taken from standard input. If no <i>outfile</i> is given (or a '<b>-</b>' character is in its place), results are sent to standard
+output.
+<p>Note that a "lazy" parser is used which does not check for more than the first option letter, unless the option is followed by a parameter. Spaces between a
+single option letter and its parameter are optional. Parameters to options can be specified in decimal, hexadecimal or octal notation. Thus <b>-c8</b>, <b>-c
+8</b>, <b>-c 010</b> and <b>-cols 8</b> are all equivalent.
+<dl compact>
+<dt><i>-a</i> | <i>-autoskip</i>
+<dd>toggle autoskip: A single '*' replaces nul-lines. Default off.
+<dt><i>-b</i> | <i>-bits</i>
+<dd>Switch to bits (binary digits) dump, rather than hexdump. This option writes octets as eight digits "1"s and "0"s instead of a normal hexadecimal dump.
+Each line is preceded by a line number in hexadecimal and followed by an ascii (or ebcdic) representation. The command line switches -r, -p, -i do not work
+with this mode.
+<dt><i>-c cols</i> | <i>-cols cols</i>
+<dd>format &lt;<i>cols</i>&gt; octets per line. Default 16 (-i: 12, -ps: 30, -b: 6). Max 256.
+<dt><i>-E</i> | <i>-EBCDIC</i>
+<dd>Change the character encoding in the righthand column from ASCII to EBCDIC. This does not change the hexadecimal representation. The option is meaningless
+in combinations with -r, -p or -i.
+<dt><i>-g bytes</i> | <i>-groupsize bytes</i>
+<dd>separate the output of every &lt;<i>bytes</i>&gt; bytes (two hex characters or eight bit-digits each) by a whitespace. Specify <i>-g</i> 0 to suppress
+grouping. &lt;<i>Bytes</i>&gt; defaults to <i>2</i> in normal mode and <i>1</i> in bits mode. Grouping does not apply to postscript or include style.
+<dt><i>-h</i> | <i>-help</i>
+<dd>print a summary of available commands and exit. No hex dumping is performed.
+<dt><i>-i</i> | <i>-include</i>
+<dd>output in C include file style. A complete static array definition is written (named after the input file), unless xxd reads from stdin.
+<dt><i>-l len</i> | <i>-len len</i>
+<dd>stop after writing &lt;<i>len</i>&gt; octets.
+<dt><i>-p</i> | <i>-ps</i> | <i>-postscript</i> | <i>-plain</i>
+<dd>output in postscript continuous hexdump style. Also known as plain hexdump style.
+<dt><i>-r</i> | <i>-revert</i>
+<dd>reverse operation: convert (or patch) hexdump into binary. If not writing to stdout, xxd writes into its output file without truncating it. Use the
+combination <i>-r</i> -p to read plain hexadecimal dumps without line number information and without a particular column layout. Additional Whitespace and
+line-breaks are allowed anywhere.
+<dt><i>-seek</i> offset
+<dd>When used after <i>-r</i>: revert with &lt;<i>offset</i>&gt; added to file positions found in hexdump.
+<dt><i>-s</i> [+][-]seek
+<dd>start at &lt;<i>seek</i>&gt; bytes abs. (or rel.) infile offset. <i>+</i> indicates that the seek is relative to the current stdin file position
+(meaningless when not reading from stdin). <i>-</i> indicates that the seek should be that many characters from the end of the input (or if combined with
+<i>+</i>: before the current stdin file position). Without -s option, xxd starts at the current file position.
+<dt><i>-u</i>
+<dd>use upper case hex letters. Default is lower case.
+<dt><i>-v</i> | <i>-version</i>
+<dd>show version string.</dl>
+<h2>Caveats</h2>
+<p><i>xxd</i> -r has some builtin magic while evaluating line number information. If the output file is seekable, then the linenumbers at the start of each
+hexdump line may be out of order, lines may be missing, or overlapping. In these cases xxd will <i><b><a href="/man/2/lseek">lseek</a></b>(2)</i> to the next position. If the output file is not
+seekable, only gaps are allowed, which will be filled by null-bytes.
+<p><i>xxd</i> -r never generates parse errors. Garbage is silently skipped.
+<p>When editing hexdumps, please note that <i>xxd</i> -r skips everything on the input line after reading enough columns of hexadecimal data (see option -c).
+This also means, that changes to the printable ascii (or ebcdic) columns are always ignored. Reverting a plain (or postscript) style hexdump with xxd -r -p
+does not depend on the correct number of columns. Here anything that looks like a pair of hex-digits is interpreted.
+<p>Note the difference between<br>
+<i>% xxd -i file</i><br>
+and<br>
+<i>% xxd -i &lt; file</i>
+<p><i>xxd</i> -s +seek may be different from <i>xxd -s seek</i>, as <i><b><a href="/man/2/lseek" rel="nofollow">lseek</a></b>(2)</i> is used to "rewind" input. A '+' makes a difference if the input source is
+stdin, and if stdin's file position is not at the start of the file by the time xxd is started and given its input. The following examples may help to clarify
+(or further confuse!)...
+<p>Rewind stdin before reading; needed because the 'cat' has already read to the end of stdin.<br>
+<i>% sh -c "cat &gt; plain_copy; xxd -s 0 &gt; hex_copy" &lt; file</i>
+<p>Hexdump from file position 0x480 (=1024+128) onwards. The '+' sign means "relative to the current position", thus the '128' adds to the 1k where dd left
+off.<br>
+<i>% sh -c "dd of=plain_snippet bs=1k count=1; xxd -s +128 &gt; hex_snippet" &lt; file</i>
+<p>Hexdump from file position 0x100 ( = 1024-768) on.<br>
+<i>% sh -c "dd of=plain_snippet bs=1k count=1; xxd -s +-768 &gt; hex_snippet" &lt; file</i>
+<p>However, this is a rare situation and the use of '+' is rarely needed. The author prefers to monitor the effect of xxd with <i><b><a href="strace">strace</a></b>(1)</i> or
+<i><b>truss</b>(1)</i>, whenever -s is used.
+<h2>Examples</h2>
+<p>
+Print everything but the first three lines (hex 0x30 bytes) of <b>file</b>.<br>
+<i>% xxd -s 0x30 file</i>
+<p>
+Print 3 lines (hex 0x30 bytes) from the end of <b>file</b>.<br>
+<i>% xxd -s -0x30 file</i>
+<p>
+Print 120 bytes as continuous hexdump with 20 octets per line.<br>
+<i>% xxd -l 120 -ps -c 20 xxd.1</i><br>
+2e54482058584420312022417567757374203139<br>
+39362220224d616e75616c207061676520666f72<br>
+20787864220a2e5c220a2e5c222032317374204d<br>
+617920313939360a2e5c22204d616e2070616765<br>
+20617574686f723a0a2e5c2220202020546f6e79<br>
+204e7567656e74203c746f6e79407363746e7567<p>
+Hexdump the first 120 bytes of this man page with 12 octets per line.<br>
+<i>% xxd -l 120 -c 12 xxd.1</i><br>
+0000000: 2e54 4820 5858 4420 3120 2241 .TH XXD 1 "A<br>
+000000c: 7567 7573 7420 3139 3936 2220 ugust 1996"<br>
+0000018: 224d 616e 7561 6c20 7061 6765 "Manual page<br>
+0000024: 2066 6f72 2078 7864 220a 2e5c for xxd"..\<br>
+0000030: 220a 2e5c 2220 3231 7374 204d "..\" 21st M<br>
+000003c: 6179 2031 3939 360a 2e5c 2220 ay 1996..\"<br>
+0000048: 4d61 6e20 7061 6765 2061 7574 Man page aut<br>
+0000054: 686f 723a 0a2e 5c22 2020 2020 hor:..\"<br>
+0000060: 546f 6e79 204e 7567 656e 7420 Tony Nugent<br>
+000006c: 3c74 6f6e 7940 7363 746e 7567 &lt;tony@sctnug
+<p>
+Display just the date from the file xxd.1<br>
+<i>% xxd -s 0x36 -l 13 -c 13 xxd.1</i><br>
+0000036: 3231 7374 204d 6179 2031 3939 36 21st May 1996
+<p>
+Copy <b>input_file</b> to <b>output_file</b> and prepend 100 bytes of value 0x00.<br>
+<i>% xxd input_file | xxd -r -s 100 &gt; output_file</i><p>
+Patch the date in the file xxd.1<br>
+<i>% echo "0000037: 3574 68" | xxd -r - xxd.1</i><br>
+<i>% xxd -s 0x36 -l 13 -c 13 xxd.1</i><br>
+0000036: 3235 7468 204d 6179 2031 3939 36 25th May 1996
+<p>
+Create a 65537 byte file with all bytes 0x00, except for the last one which is 'A' (hex 0x41).<br>
+<i>% echo "010000: 41" | xxd -r &gt; file</i>
+<p>
+Hexdump this file with autoskip.<br>
+<i>% xxd -a -c 12 file</i><br>
+0000000: 0000 0000 0000 0000 0000 0000 ............<br>
+*<br>
+000fffc: 0000 0000 40 ....A
+<p>Create a 1 byte file containing a single 'A' character. The number after '-r -s' adds to the linenumbers found in the file; in effect, the leading bytes are
+suppressed.<br>
+<i>% echo "010000: 41" | xxd -r -s -0x10000 &gt; file</i>
+<p>Use xxd as a filter within an editor such as <i><b><b><a href="vim">vim</a></b>(1)</b></i> to hexdump a region marked between 'a' and 'z'.<br>
+<i>:'a,'z!xxd</i>
+<p>Use xxd as a filter within an editor such as <i><b><b><a href="vim" rel="nofollow">vim</a></b>(1)</b></i> to recover a binary hexdump marked between 'a' and 'z'.<br>
+<i>:'a,'z!xxd -r</i>
+<p>Use xxd as a filter within an editor such as <i><b><b><a href="vim" rel="nofollow">vim</a></b>(1)</b></i> to recover one line of a hexdump. Move the cursor over the line and type:<br>
+<i>!!xxd -r</i>
+<p>Read single characters from a serial line<br>
+<i>% xxd -c1 &lt; /dev/term/b &amp;</i><br>
+<i>% stty &lt; /dev/term/b -echo -opost -isig -icanon min 1</i><br>
+<i>% echo -n foo &gt; /dev/term/b</i>
+<h2>Return Values</h2>
+The following error values are returned:
+<ol>
+<li>no errors encountered.
+<dl compact>
+<dt>-1
+<dd>operation not supported ( <i>xxd</i> -r -i still impossible).</dl>
+<li>error while parsing options.
+<li>problems with input file.
+<li>problems with output file.
+<dl compact>
+<dt>4,5
+<dd>desired seek position is unreachable.</dl>
+<h2>See Also</h2>
+<i><b><a href="uuencode">uuencode</a></b>(1)</i>, <i><b><a href="uudecode">uudecode</a></b>(1)</i>, <i><b><a href="patch">patch</a></b>(1)</i><br>
+<h2>Warnings</h2>
+The tools weirdness matches its creators brain. Use entirely at your own risk. Copy files. Trace
+it. Become a wizard.<br>
+<h2>Version</h2>
+This manual page documents xxd version 1.7
+<h2>Author</h2>
+(c) 1990-1997 by Juergen Weigert<br>
+&lt;<a href="mailto:jnweiger@informatik.uni-erlangen.de">jnweiger@informatik.uni-erlangen.de</a>&gt;
+<p>Distribute freely and credit me,<br>
+make money and share with me,<br>
+lose money and don't ask me.
+<p>Manual page started by Tony Nugent<br>
+&lt;<a href="mailto:tony@sctnugen.ppp.gu.edu.au">tony@sctnugen.ppp.gu.edu.au</a>&gt; &lt;<a href="mailto:T.Nugent@sct.gu.edu.au">T.Nugent@sct.gu.edu.au</a>&gt;<br>
+Small changes by Bram Moolenaar. Edited by Juergen Weigert.
+
+<!-- google_ad_section_end -->
+<h2>Referenced By</h2>
+<b><a href="oggz-dump" rel="nofollow">oggz-dump</a></b>(1)
+<div id=adbottom>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-5823754184406795"
+     data-ad-slot="8789940313"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+</div>
+<div id=menu>
+<dl>
+<dt>Site Search</dt>
+<dd>
+<form id="cse-search-box-menu" action="https://www.google.com/cse">
+<input name="q" type="text" size="10">
+<input type="hidden" name="sa" value="Search">
+<input type="hidden" name="ie" value="ISO-8859-1">
+<input type="hidden" name="cx" value="partner-pub-5823754184406795:54htp1rtx5u">
+<input type="hidden" name="cof" value="FORID:9">
+</form>
+<script type="text/javascript">
+<!--
+document.forms["cse-search-box-menu"].action = "https://www.die.net/search/";
+// -->
+</script>
+</dd></dl>
+
+
+
+<dl>
+<dt>Library</dt>
+<dd><a href="https://linux.die.net/">linux docs</a></dd>
+<dd><a href="https://linux.die.net/man/">linux man pages</a></dd>
+<dd><a href="https://www.die.net/musings/page_load_time/">page load time</a></dd>
+</dl>
+<dl>
+<dt>Toys</dt>
+<dd><a href="https://www.die.net/earth/">world sunlight</a></dd>
+<dd><a href="https://www.die.net/moon/">moon phase</a></dd>
+<dd><a href="http://trace.die.net/">trace explorer</a></dd>
+</dl>
+
+
+<dl>
+<dt><a href="/man/1/"><img src="/style/back.gif" alt="Back"
+width=20 height=22></a></dt><dd></dd>
+</dl>
+</div></div>
+<script type="text/javascript">
+<!--
+if (top.location != self.location) top.location = self.location;
+if (/[?&][pq]=/.test(document.referrer)) document.write(unescape("%3Cscript src='/style/highlight.js' type='text/javascript'%3E%3C/script%3E"));
+function googleTranslateElementInit() {new google.translate.TranslateElement({pageLanguage: 'en', floatPosition: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, gaTrack: true, gaId: 'UA-50820-6'});}
+if (!/^en/i.test(window.navigator.userLanguage||window.navigator.language)) document.write(unescape("%3Cscript src='//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit' type='text/javascript'%3E%3C/script%3E"));
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+// -->
+</script>
+<script>(function(){var js = "window['__CF$cv$params']={r:'7d7eb1d57f6d41a1',m:'Ju2MmfGig9vltcK7M4JNUzXyrfAWkkkTg9bipnrjmQ8-1686872810-0-AX0D7bvSqDauwrhwSKGG59mR/HgvDKun0Xyj68vSnU73'};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/scripts/invisible.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

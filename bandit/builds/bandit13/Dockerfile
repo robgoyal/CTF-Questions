@@ -12,5 +12,7 @@ RUN echo "/usr/bin/customshell" >> /etc/shells
 COPY note.txt /home/${ARG_CURR_USER_USERNAME}/note.txt
 RUN cat /usr/bin/customshell >> /home/${ARG_CURR_USER_USERNAME}/note.txt
 RUN chsh -s /usr/bin/customshell ${ARG_CURR_USER_USERNAME}
+
+WORKDIR /home/${ARG_CURR_USER_USERNAME}
 RUN mkdir .hidden
-RUN echo "${ARG_NEXT_USER_PASSWORD}" > .hidden/.thisisntthebesthidingspotbutyoufoundme.txt
+RUN echo "The password for ${ARG_NEXT_USER_USERNAME} is: '${ARG_NEXT_USER_PASSWORD}'" > .hidden/.thisisntthebesthidingspotbutyoufoundme.txt

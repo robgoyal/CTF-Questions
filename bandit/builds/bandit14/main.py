@@ -6,6 +6,10 @@ NEXT_PASSWORD = '<ARG_NEXT_USER_PASSWORD>'
 
 api = Flask(__name__)
 
+@api.route("/", methods=["GET", "POST"])
+def index():
+    return jsonify({"error": "There's nothing here. Submit your request to /<filename>"})
+
 @api.route("/<filename>", methods=["POST"])
 def post_file(filename):
     """Upload a file."""

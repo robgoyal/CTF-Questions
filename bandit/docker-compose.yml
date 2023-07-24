@@ -475,6 +475,17 @@ services:
         - ARG_NEXT_USER_PASSWORD=${BANDIT25}
     <<: *default-environment
 
+  # BANDIT25 
+  bandit-25-ctr:
+    image: bandit-25-img
+    container_name: bandit-25-ctr
+    build:
+      context: ./builds/bandit25/
+      args:
+        - ARG_CURR_USER_USERNAME=bandit25
+        - ARG_CURR_USER_PASSWORD=${BANDIT25}
+    <<: *default-environment
+
 networks:
   bandit:
   bandit11:

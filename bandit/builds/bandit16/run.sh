@@ -1,7 +1,4 @@
 #!/bin/bash
 
-NEXT_USER_USERNAME=<ARG_NEXT_USER_USERNAME>
-TMUX_SOCKET_NAME=<TMUX_SOCKET_NAME>
-
-su $NEXT_USER_USERNAME -c "tmux -S $TMUX_SOCKET_NAME new-session -d"
+cron
 /usr/sbin/sshd -D

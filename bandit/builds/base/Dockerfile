@@ -34,6 +34,7 @@ RUN apt-get install dnsutils -y
 RUN apt-get install cron -y
 RUN apt-get install git -y
 RUN apt-get install tcpdump -y
+RUN apt-get install nmap -y
 
 # MATRIX rainfall configuration on SSH login for every user
 COPY tmatrix.tar.gz /tmp/tmatrix.tar.gz

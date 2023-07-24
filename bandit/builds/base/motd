@@ -1,11 +1,13 @@
-=================================================================================
+==================================================================================
 
+Welcome to the BANDIT series of questions. If you haven't explored OvertheWire
+BANDIT, definitely check it out. This is an inspiration from that project. 
 
+Start off as bandit0 and use your skills about Linux, networking, and more topics
+to reach the final user. For each question, solve the challenge to get the password
+for the next user. For every question, the password for each user will be located in 
+/etc/blacktuque/<username>/password. 
 
+Good luck and enjoy learning.
 
-				HELLO WORLD
-
-
-
-
-=================================================================================
+==================================================================================

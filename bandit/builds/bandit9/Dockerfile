@@ -9,4 +9,4 @@ RUN echo "${ARG_NEXT_USER_PASSWORD}" > /etc/blacktuque/${ARG_NEXT_USER_USERNAME}
 
 RUN echo "${ARG_NEXT_USER_PASSWORD}" | openssl aes-256-cbc -a -pass pass:${NEXT_USER_PASSWORD_KEY}> /home/${ARG_NEXT_USER_USERNAME}/encrypted.txt
 RUN chfn -o "In case I forget my password, I left a hint in ~." ${ARG_NEXT_USER_USERNAME}
-RUN echo "I used openssl's aes-256-cbc cipher with the password '${NEXT_USER_PASSWORD_KEY}'" > /home/${ARG_NEXT_USER_USERNAME}/note.txt
+RUN echo "I used the following command to encrypt my password: 'echo [mypassword] | openssl aes-256-cbc -a -pass pass:${NEXT_USER_PASSWORD_KEY}'" > /home/${ARG_NEXT_USER_USERNAME}/note.txt

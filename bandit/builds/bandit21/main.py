@@ -9,7 +9,7 @@ This performs the following functions:
     - established connections
     - network traffic for 2 seconds
 
-Forget sudo privileges. Uusing a hacky solution so that
+Forget sudo privileges. Using a hacky solution so that
 we don't give unnecessary access to our people. 
 """
 

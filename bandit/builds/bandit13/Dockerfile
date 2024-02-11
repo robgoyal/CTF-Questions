@@ -5,7 +5,7 @@ ARG ARG_CURR_USER_PASSWORD
 ARG ARG_NEXT_USER_USERNAME
 ARG ARG_NEXT_USER_PASSWORD
 
-RUN echo "${ARG_NEXT_USER_PASSWORD}" > /etc/blacktuque/${ARG_NEXT_USER_USERNAME}/password
+RUN echo "${ARG_NEXT_USER_PASSWORD}" > /etc/bandit/${ARG_NEXT_USER_USERNAME}/password
 
 COPY --chmod=755 customshell /usr/bin/customshell
 RUN echo "/usr/bin/customshell" >> /etc/shells

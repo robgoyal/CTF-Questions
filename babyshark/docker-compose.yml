@@ -1,0 +1,26 @@
+services:
+  babyshark-c2:
+    image: babyshark-c2
+    build: .
+    container_name: babyshark-c2
+    ports:
+      - "420:420"
+      - "20-21:20-21"
+      - "65500-65515:65500-65515"
+      - "64821:64821"
+      - "57492:57492"
+      - "26356:26356"
+    stop_signal: SIGINT
+    environment:
+      - FTPD_BANNER=Anonymous FTP server ......... ezmode
+    restart: always
+    cap_add:
+      - NET_ADMIN
+
+  agent:
+    image: babyshark-agent
+    container_name: babyshark-agent
+    build: 
+      context: .
+      dockerfile: Dockerfile_agent
+    restart: always

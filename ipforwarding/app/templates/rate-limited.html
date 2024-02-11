@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<div class="alert alert-warning" role="alert">
+  Who are you, Agent? Are you one of us? We have detected you trying to breach our security controls. Further continuance of your activities will lead to persecution.
+  If you are who you say are, Agent, the security controls will reset in {{ time }} mins.
+</div>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">IP</th>
+      <th scope="col">Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for blocked_ip in blocked_ips %}
+    <tr>
+      <th scope="row">{{ blocked_ip[0] }}</th>
+      <td>{{ blocked_ip[1] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

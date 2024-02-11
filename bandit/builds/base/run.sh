@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create a directory for the passwords
-mkdir /etc/blacktuque
+mkdir /etc/bandit
 
 # Source the passwords file to load variables
 source ./passwords.txt
@@ -19,11 +19,13 @@ do
 
   # Hush login output, tmatrix and motd configuration in .profile for each user
   touch /home/$username/.hushlogin
-  echo "tmatrix -t 'TEST 3' --no-fade" >> /home/$username/.profile
-  echo "cat /etc/motd" >> /home/$username/.profile
+  echo "tmatrix -t 'BANDIT' --no-fade" >> /home/$username/.profile
 
   # Create directory with limited permissions for the password of the user
-  mkdir /etc/blacktuque/$username
-  chown $username:$username /etc/blacktuque/$username
-  chmod 700 /etc/blacktuque/$username
+  mkdir /etc/bandit/$username
+  chown $username:$username /etc/bandit/$username
+  chmod 700 /etc/bandit/$username
 done
+
+# Only display the MOTD for the first login
+echo "cat /etc/motd" >> /home/bandit0/.profile

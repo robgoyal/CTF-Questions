@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="alert alert-danger" role="alert">
+  Welcome Agent {{ authorized_agent }}. We've been having a series of attacks on our internal network. We've limited access to only hosts within the {{ whitelisted_subnet }}. Access to the secure chat system is only available from this protected network.
+  Once you've received access. Enter the following PIN: <strong>{{ chat_key }}</strong> to verify your identity.
+</div>
+
+
+{% endblock %}

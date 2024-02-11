@@ -1,0 +1,10 @@
+services:
+  web:
+    container_name: urlshortener
+    image: urlshortener
+    build: .
+    ports:
+      - "7070:80"
+    restart: always
+  redis:
+    image: "redis:alpine"

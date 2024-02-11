@@ -210,7 +210,7 @@ services:
     networks:
       bandit:
       bandit11:
-        ipv4_address: 172.20.20.20
+        ipv4_address: 192.168.20.20
     depends_on:
       - bandit-base-img
       - bandit-sshpiper
@@ -249,7 +249,7 @@ services:
     networks:
       bandit:
       bandit12:
-          ipv4_address: 172.20.30.30
+          ipv4_address: 192.168.30.30
     sysctls:
       - net.ipv4.icmp_echo_ignore_all=1
     depends_on:
@@ -301,7 +301,7 @@ services:
     networks:
       bandit:
       bandit14:
-          ipv4_address: 172.20.129.58
+          ipv4_address: 192.168.129.58
     depends_on:
       - bandit-base-img
       - bandit-sshpiper
@@ -373,7 +373,7 @@ services:
     restart: always
 
   bandit-18-server-ctr:
-    #image: stilliard/pure-ftpd
+    image: bandit-18-server-img
     container_name: bandit-18-server-ctr
     build:
       context: ./builds/bandit18/
@@ -491,20 +491,20 @@ networks:
   bandit11:
     ipam:
       config:
-        - subnet: 172.20.20.0/24
-          gateway: 172.20.20.1
+        - subnet: 192.168.20.0/24
+          gateway: 192.168.20.1
   bandit12:
     ipam:
       config:
-        - subnet: 172.20.30.0/24
-          gateway: 172.20.30.1
+        - subnet: 192.168.30.0/24
+          gateway: 192.168.30.1
   bandit14:
     ipam:
       config:
-        - subnet: 172.20.129.0/24
-          gateway: 172.20.129.1
+        - subnet: 192.168.129.0/24
+          gateway: 192.168.129.1
   bandit18:
     ipam:
       config:
-        - subnet: 172.20.40.0/24
-          gateway: 172.20.40.1
+        - subnet: 192.168.40.0/24
+          gateway: 192.168.40.1

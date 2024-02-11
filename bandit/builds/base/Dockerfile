@@ -1,5 +1,10 @@
 FROM ubuntu:20.04
 
+# Configuration files
+COPY sources.list /etc/apt/sources.list
+COPY pip.conf /etc/pip.conf
+ENV PIP_CONFIG_FILE /etc/pip.conf
+
 # Specify arguments for user in base image 
 ARG ARG_NUM_BANDIT_USERS
 
@@ -7,8 +12,8 @@ ARG ARG_NUM_BANDIT_USERS
 ENV TZ=America/New_York DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && apt-get upgrade -y
 RUN yes | unminimize
-RUN apt-get install ubuntu-minimal -y
 RUN apt-get install openssh-server -y
+RUN apt-get install ubuntu-minimal -y
 RUN apt-get install sudo -y
 RUN apt-get install net-tools -y
 RUN apt-get install vim -y
@@ -42,14 +47,14 @@ RUN tar -xzvf /tmp/tmatrix.tar.gz -C /tmp
 WORKDIR /tmp/installation
 RUN ./install.sh
 RUN rm /tmp/tmatrix.tar.gz
-WORKDIR /root
 RUN rm -r /tmp/installation
 
-# MOTD for every SSH login
+# MOTD for first SSH login
 COPY motd /etc/motd
 RUN chmod -x /etc/update-motd.d
 
 # Default configuration for each user, create them, update password, and save password to disk, delete files
+WORKDIR /root
 COPY --chmod=750 run.sh run.sh
 COPY --chmod=440 .env passwords.txt
 RUN ./run.sh $ARG_NUM_BANDIT_USERS

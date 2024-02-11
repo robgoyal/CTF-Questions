@@ -4,7 +4,7 @@ ARG ARG_CURR_USER_USERNAME
 ARG ARG_NEXT_USER_USERNAME
 ARG ARG_NEXT_USER_PASSWORD
 
-RUN echo "${ARG_NEXT_USER_PASSWORD}" > /etc/blacktuque/${ARG_NEXT_USER_USERNAME}/password
+RUN echo "${ARG_NEXT_USER_PASSWORD}" > /etc/bandit/${ARG_NEXT_USER_USERNAME}/password
 
 RUN chmod 751 /root
 COPY --chmod=646 history /root/history

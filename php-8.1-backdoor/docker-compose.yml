@@ -1,0 +1,10 @@
+services:
+ web:
+   image: vulhub/php:8.1-backdoor
+   volumes:
+     - ./index.php:/var/www/html/index.php
+     - ./static:/var/www/html/static
+     - ./flag.txt:/opt/flag.txt
+   ports:
+     - "8080:80"
+   user: www-data

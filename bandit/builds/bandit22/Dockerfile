@@ -5,7 +5,7 @@ ARG ARG_CURR_USER_PASSWORD
 ARG ARG_NEXT_USER_USERNAME
 ARG ARG_NEXT_USER_PASSWORD
   
-RUN echo "${ARG_NEXT_USER_PASSWORD}" > /etc/blacktuque/${ARG_NEXT_USER_USERNAME}/password
+RUN echo "${ARG_NEXT_USER_PASSWORD}" > /etc/bandit/${ARG_NEXT_USER_USERNAME}/password
 
 # chattr - sudo privileges for current user
 RUN echo "${ARG_CURR_USER_USERNAME} ALL = NOPASSWD: /usr/bin/chattr" > /etc/sudoers.d/${ARG_CURR_USER_USERNAME}

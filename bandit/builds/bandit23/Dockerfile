@@ -5,7 +5,7 @@ ARG ARG_CURR_USER_PASSWORD
 ARG ARG_NEXT_USER_USERNAME
 ARG ARG_NEXT_USER_PASSWORD
   
-RUN echo "${ARG_NEXT_USER_PASSWORD}" > /etc/blacktuque/${ARG_NEXT_USER_USERNAME}/password
+RUN echo "${ARG_NEXT_USER_PASSWORD}" > /etc/bandit/${ARG_NEXT_USER_USERNAME}/password
 
 RUN usermod -aG sudo ${ARG_CURR_USER_USERNAME}
 RUN apt-get install tmux -y

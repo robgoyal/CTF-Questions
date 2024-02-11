@@ -1,0 +1,10 @@
+services:
+  web:
+    container_name: flask_ip_spoofing
+    image: flask_ip_spoofing
+    build: .
+    ports:
+      - "9090:80"
+    restart: always
+  redis:
+    image: "redis:alpine"

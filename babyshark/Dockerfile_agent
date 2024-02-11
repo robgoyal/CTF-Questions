@@ -1,0 +1,21 @@
+FROM ubuntu:20.04
+
+
+ENV TZ=America/New_York DEBIAN_FRONTEND=noninteractive
+RUN apt-get update -y && apt-get upgrade -y
+RUN yes | unminimize
+RUN apt-get install ubuntu-minimal -y
+RUN apt-get install python3-pip -y
+RUN apt-get install python3-venv -y
+
+WORKDIR /opt
+
+COPY BabyShark BabyShark
+RUN pip3 install -r BabyShark/requirements.txt
+COPY agent.py agent.py
+
+
+RUN mkdir -p /agent
+COPY flag.txt  /agent/flag.txt
+
+CMD ["python3", "agent.py"]

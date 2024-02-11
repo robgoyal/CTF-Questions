@@ -14,15 +14,15 @@ def index():
 def post_file(filename):
     """Upload a file."""
 
-    if filename != "blacktuque.doc":
-        return jsonify({"error": "The filename must be blacktuque.doc"})
+    if filename != "bandit.doc":
+        return jsonify({"error": "The filename must be bandit.doc"})
 
     if request.headers.get("Content-Type", "") != "multipart/form-data":
         return jsonify({"error": "The content type must be multipart/form-data"})
 
     data = request.data.decode()
-    if data != "BLACKTUQUE 2023":
-        return jsonify({"error": "The contents of the file must be 'BLACKTUQUE 2023'"})
+    if data != "bandit 2023":
+        return jsonify({"error": "The contents of the file must be 'bandit 2023'"})
 
     return jsonify({"success": f"The password for the next user is: {NEXT_PASSWORD}"})
 

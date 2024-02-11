@@ -11,6 +11,7 @@ RUN cat server.key server.crt > server.pem
 RUN chmod 600 server.key server.pem 
 
 RUN sed -i "s/<ARG_CURR_USER_PASSWORD>/${ARG_CURR_USER_PASSWORD}/" main.py
+RUN sed -i "s/<ARG_CURR_USER_USERNAME>/${ARG_CURR_USER_USERNAME}/" main.py
 RUN sed -i "s/<ARG_NEXT_USER_PASSWORD>/${ARG_NEXT_USER_PASSWORD}/" main.py
 
 EXPOSE 3000

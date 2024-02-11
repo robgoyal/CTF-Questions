@@ -1,13 +1,24 @@
-==================================================================================
 
-Welcome to the BANDIT series of questions. If you haven't explored OvertheWire
-BANDIT, definitely check it out. This is an inspiration from that project. 
+======================================================================
+                    
+          Welcome! You're patched in to the BANDIT.
 
-Start off as bandit0 and use your skills about Linux, networking, and more topics
-to reach the final user. For each question, solve the challenge to get the password
-for the next user. For every question, the password for each user will be located in 
-/etc/blacktuque/<username>/password. 
+Use your skills as the ultimate hacker to progress through this year's
+BANDIT BANDIT style challenges. If you haven't played OverTheWire
+Bandit before, do not worry, we'll start it off easy. Manouevre through 
+the challenges, apply your Linux prowess, find the misconfigurations, 
+vulnerabilities, and sensitive information to reach the end.
 
-Good luck and enjoy learning.
+You are currently bandit0. Your objective is to find the password for
+the next user with your current user's access. The first challenge is
+simple but the difficulty will increase. The password for the next user
+will be located in /etc/bandit/[username]/password, but only the 
+[username] has access to their password. Once you find the password, 
+submit the flag to the CTF scoreboard and use it to login as the next
+user. 
 
-==================================================================================
+          Good................................Bye. 
+
+======================================================================
+
+
